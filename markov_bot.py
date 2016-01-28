@@ -20,7 +20,9 @@ Otherwise the script checks for new mentions and comments once and replies.
 # Define some globals
 client_auth = HTTPBasicAuth('CLIENT_ID', 'CLIENT_SECRET')
 headers = {"User-Agent": "BOT_NAME/0.1 by /u/USER"}
-post_data = {"grant_type": "password", "username": "BOT_USERNAME", "password": "PASSWORD"}
+post_data = {"grant_type": "password",
+    "username": "BOT_USERNAME", 
+    "password": "PASSWORD"}
 
 # A newline delimited text file
 markov_model_file = '/path/to/markov_file.txt'
@@ -43,7 +45,8 @@ def authenticated_request(url, token):
     if int(time.time() - token_time) < 3600:
         try:
             # Try with token
-            response = requests.get("https://oauth.reddit.com/%s" % (url), headers=headers)
+            response = requests.get("https://oauth.reddit.com/%s" % (url),
+                headers=headers)
         except Exception, e:
             print "Error: ", e
     else:
@@ -52,7 +55,8 @@ def authenticated_request(url, token):
         headers["Authorization"] = "bearer %s" % token
         try:
             # Try again with new token
-            response = requests.get("https://oauth.reddit.com/%s" % (url), headers=headers)
+            response = requests.get("https://oauth.reddit.com/%s" % (url),
+                headers=headers)
         except Exception, e:
             print "Error: ", e
     return response
