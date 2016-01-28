@@ -118,6 +118,7 @@ def reply_to_mentions(comment_mentions,text_model):
             data={'parent':'t1_%s' % (mention),
                 'text': generate_statement(text_model)},
             headers=headers)
+            print "Replied to %s" % mention
         time.sleep(1)
 
 def mark_as_read(token):
@@ -149,8 +150,6 @@ def run_mark_loop(text_model):
             reply_mentions = process_mentions(all_coms_and_mentions)
             if len(reply_mentions) > 0:
                 reply_to_mentions(reply_mentions,text_model)
-                for men in reply_mentions:
-                    print "Replied to %s" % men
             mark_as_read(token)
         else:
             print "Nothing found, sleeping for 60 seconds"
@@ -164,8 +163,6 @@ def run_mark(text_model):
         reply_mentions = process_mentions(all_coms_and_mentions)
         if len(reply_mentions) > 0:
             reply_to_mentions(reply_mentions,text_model)
-            for men in reply_mentions:
-                print "Replied to %s" % men
         mark_as_read(token)
     else:
         print "No new comments or mentions found."
