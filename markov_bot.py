@@ -126,7 +126,8 @@ def reply_to_mentions(comment_mentions,text_model):
         time.sleep(1)
 
 def mark_as_read(token):
-
+    # Successful response code from post is 202.
+    # If 429 received, request rate has exceeded api limits 
     if int(time.time() - token_time) > 3600:
         token = authenticate()
         headers["Authorization"] = "bearer %s" % token
@@ -134,7 +135,7 @@ def mark_as_read(token):
     r = requests.post('https://oauth.reddit.com/api/read_all_messages',
         headers=headers)
 
-    if int(r.status_code) == 402:
+    if int(r.status_code) == 202:
         while check_mail(token) == True:
             print "Waiting until unread messages are cleared"
             time.sleep(1)
