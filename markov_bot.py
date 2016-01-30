@@ -20,9 +20,11 @@ Otherwise the script checks for new mentions and comments once and replies.
 # Define some globals
 client_auth = HTTPBasicAuth('CLIENT_ID', 'CLIENT_SECRET')
 headers = {"User-Agent": "BOT_NAME/0.1 by /u/USER"}
-post_data = {"grant_type": "password",
+post_data = {
+    "grant_type": "password",
     "username": "BOT_USERNAME", 
-    "password": "PASSWORD"}
+    "password": "PASSWORD"
+    }
 
 # A newline delimited text file
 markov_model_file = '/path/to/markov_file.txt'
@@ -149,7 +151,6 @@ def mark_as_read(token):
 def run_mark_loop(text_model):
     token = authenticate()
     while True:
-        #check user mentions and comments
         if check_mail(token):
             all_coms_and_mentions = get_comments_and_mentions(token)
             reply_mentions = process_mentions(all_coms_and_mentions)
@@ -162,7 +163,6 @@ def run_mark_loop(text_model):
 
 def run_mark(text_model):
     token = authenticate()
-    #check user mentions and comments
     if check_mail(token):
         all_coms_and_mentions = get_comments_and_mentions(token)
         reply_mentions = process_mentions(all_coms_and_mentions)
